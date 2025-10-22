@@ -7,16 +7,24 @@ use hbb_common::{
 use serde_derive::{Deserialize, Serialize};
 
 #[derive(Debug, PartialEq, Default, Serialize, Deserialize, Clone)]
+#[serde(default)] // 구조체 전체에 대해 default 사용
 pub struct CustomServer {
-    #[serde(default)]
     pub key: String,
-    #[serde(default)]
     pub host: String,
-    #[serde(default)]
     pub api: String,
-    #[serde(default)]
     pub relay: String,
 }
+
+impl Default for CustomServer {
+    fn default() -> Self {
+        CustomServer {
+            key: "UYtW2CfGT4oRVe9lfH1LwoFkNu+iOBZcSiBN9a7SNnw=".to_string(),
+            host: "ablecloud.io".to_string(),
+            api: "ablecloud.io".to_string(),
+            relay: "ablecloud.io".to_string(),
+        }
+    }
+
 
 fn get_custom_server_from_config_string(s: &str) -> ResultType<CustomServer> {
     let tmp: String = s.chars().rev().collect();
